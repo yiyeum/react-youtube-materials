@@ -1,16 +1,6 @@
 import React, { useState } from 'react'
 import { Box, TextField, Typography, withStyles, WithStyles } from '@material-ui/core'
 
-interface IRole {
-    id: number
-    role: string
-}
-
-const roleArr: IRole[] = [
-    { id: 0, role: 'Student' },
-    { id: 1, role: 'Developer' }
-]
-
 const styles = {
     root: {
         border: '3px dashed tomato'

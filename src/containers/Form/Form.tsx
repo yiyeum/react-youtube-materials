@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, TextField, Select, MenuItem, Typography, withStyles, WithStyles } from '@material-ui/core'
+import { Box, TextField, Typography, withStyles, WithStyles } from '@material-ui/core'
 
 interface IRole {
     id: number
@@ -19,9 +19,11 @@ const styles = {
 
 const FormBase = (props: WithStyles<typeof styles>) => {
     const { classes } = props
-    const [fullName, setFullName] = useState('')
-    const [age, setAge] = useState(0)
-    const [role, setRole] = useState(roleArr[0].role)
+    const [form, setForm] = useState({ fullName: '', age: 0 })
+
+    const handleForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
 
     return (
         <>
@@ -30,26 +32,19 @@ const FormBase = (props: WithStyles<typeof styles>) => {
                     <Typography variant='h6'>Please fill the form</Typography>
                 </Box>
                 <Box m={5}>
-                    <TextField label='Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} fullWidth />
+                    <TextField label='Full Name' value={form.fullName} name='fullName' onChange={handleForm} fullWidth />
                 </Box>
                 <Box m={5}>
-                    <TextField type='number' label='Age' value={age} onChange={(e) => setAge(parseInt(e.target.value))} fullWidth />
-                </Box>
-                <Box m={5}>
-                    <Select value={role} name='Role' onChange={(e: any) => setRole(e.target.value)} fullWidth>
-                        {
-                            roleArr.map((item: IRole) => <MenuItem key={item.id} value={item.role}>{item.role}</MenuItem>)
-                        }
-                    </Select>
+                    <TextField type='number' label='Age' value={form.age} name='age' onChange={handleForm} fullWidth />
                 </Box>
             </Box>
+
             <Box m={5} p={5} className={classes.root}>
                 <Box mb={3}>
                     <Typography variant='h6'>Form state</Typography>
                 </Box>
-                <Typography>Full name: {fullName}</Typography>
-                <Typography>Age: {age}</Typography>
-                <Typography>Role: {role}</Typography>
+                <Typography>Full name: {form.fullName}</Typography>
+                <Typography>Age: {form.age}</Typography>
             </Box>
         </>
     )

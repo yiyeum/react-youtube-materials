@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Box } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { FORM_URL, FORM, STOPWATCH_URL, STOPWATCH } from '../../constants';
+import { FORM_URL, FORM, STOPWATCH_URL, CONTEXT_URL, STOPWATCH, CONTEXT } from '../../constants';
 
 export const Home = () => {
     return (
@@ -13,6 +13,9 @@ export const Home = () => {
                 </li>
                 <li>
                     <Link to={STOPWATCH_URL}>{STOPWATCH}</Link>
+                </li>
+                <li>
+                    <Link to={CONTEXT_URL}>{CONTEXT}</Link>
                 </li>
             </ul>
         </Box>

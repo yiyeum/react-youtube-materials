@@ -1,31 +1,50 @@
 import React, { useReducer, useState } from 'react'
-import { Box, Button, TextField, Grid } from '@material-ui/core'
-import { DEFAULT_URL } from '../../constants'
+import { Box, Button, TextField, Grid, IconButton, Typography } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import { Link } from 'react-router-dom'
+import { uid } from 'react-uid'
+import { DEFAULT_URL } from '../../constants'
+
+interface IList {
+    id: string
+    name: string
+    tag: string
+}
 
 interface IState {
-    task: string[]
-    category: string[]
+    list: IList[]
 }
 
 type ActionType =
-    | { type: 'save'; task: string; category: string }
+    | { type: 'save'; id: string; list: string; tag: string; }
+    | { type: 'delete'; id: string }
 
 const initialState: IState = {
-    task: [],
-    category: []
+    list: []
 }
 
-const reducer = (state: IState, action: ActionType) => {
+const reducer = (state: IState, action: ActionType): IState => {
     switch (action.type) {
         case 'save':
-            return { task: [...state.task, action.task], category: [...state.category, action.category] }
+            return { list: [...state.list, { id: action.id, name: action.list, tag: action.tag }] }
+        case 'delete':
+            return { list: [...state.list.filter(item => item.id !== action.id)] }
     }
 }
 
 export const Reducer = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [form, setForm] = useState({ task: '', category: '' })
+    const [form, setForm] = useState({ list: '', tag: '' })
+
+    const saveForm = () => {
+        const formattedList: string = form.list.trim()
+        const formattedTag: string = form.tag.trim()
+
+        if (formattedList.length > 0 && formattedTag.length > 0) {
+            dispatch({ type: 'save', id: uid(form), list: form.list, tag: form.tag })
+            setForm({ list: '', tag: '' })
+        }
+    }
 
     return (
         <>
@@ -35,10 +54,10 @@ export const Reducer = () => {
             <Box m={5}>
                 <Grid container>
                     <Grid item md={2}>
-                        <TextField label='Task' value={form.task} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'task': e.target.value }) }} />
+                        <TextField label='List' value={form.list} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'list': e.target.value }) }} />
                     </Grid>
                     <Grid item md={5}>
-                        <TextField label='Category' value={form.category} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'category': e.target.value }) }} />
+                        <TextField label='Tag' value={form.tag} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'tag': e.target.value }) }} />
                     </Grid>
                 </Grid>
             </Box>
@@ -47,10 +66,33 @@ export const Reducer = () => {
                     variant='contained'
                     size='small'
                     color='primary'
-                    onClick={() => dispatch({ type: 'save', task: form.task, category: form.category })}
+                    onClick={saveForm}
                 >
                     Save
                 </Button>
+            </Box>
+            <Box m={5}>
+                <ul>
+                    {
+                        state.list.length > 0 &&
+                        state.list.map((item: IList) => (
+                            <Grid container key={item.id}>
+                                <Grid item md={4}>
+                                    <Typography variant='body1'>{item.name}</Typography>
+                                </Grid>
+                                <Grid item md={2}>
+                                    <IconButton
+                                        size="small"
+                                        aria-label="delete"
+                                        onClick={() => dispatch({ type: 'delete', id: item.id })}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                        ))
+                    }
+                </ul>
             </Box>
         </>
     )

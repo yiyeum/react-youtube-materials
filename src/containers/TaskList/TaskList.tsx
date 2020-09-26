@@ -1,15 +1,10 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, createContext } from 'react'
 import { Box, Button, TextField, Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { uid } from 'react-uid'
 import { DEFAULT_URL } from '../../constants'
-import { ItemList } from '../../components'
-
-interface ITask {
-    id: string
-    name: string
-    tag: string
-}
+import { Item } from '../../components'
+import { ITask } from '../../models'
 
 interface IState {
     list: ITask[]
@@ -23,6 +18,11 @@ const initialState: IState = {
     list: []
 }
 
+const taskData = {
+    state: initialState,
+    dispatch: () => null
+}
+
 const reducer = (state: IState, action: ActionType): IState => {
     switch (action.type) {
         case 'save':
@@ -31,6 +31,11 @@ const reducer = (state: IState, action: ActionType): IState => {
             return { list: [...state.list.filter(item => item.id !== action.id)] }
     }
 }
+
+export const TaskContext = createContext<{
+    state: IState
+    dispatch: React.Dispatch<any>
+}>(taskData)
 
 export const TaskList = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -47,7 +52,7 @@ export const TaskList = () => {
     }
 
     return (
-        <>
+        <TaskContext.Provider value={{ state, dispatch }} >
             <Box m={1}>
                 <Link to={DEFAULT_URL}><Button>Back to Home</Button></Link>
             </Box>
@@ -71,7 +76,7 @@ export const TaskList = () => {
                     Save
                 </Button>
             </Box>
-            <ItemList />
-        </>
+            <Item />
+        </TaskContext.Provider >
     )
 }

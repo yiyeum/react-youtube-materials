@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 import { Box, IconButton, Typography, Grid } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { TaskContext } from '../../containers'
-import { ITask } from '../../models'
+import { ITask, ITaskData } from '../../models'
 
 export const Item = () => {
-    const taskData = useContext(TaskContext)
+    const taskData: ITaskData = useContext(TaskContext)
 
     return (
         <Box m={5}>

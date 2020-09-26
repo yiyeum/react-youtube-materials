@@ -2,40 +2,33 @@ import React, { useReducer, useState, createContext } from 'react'
 import { Box, Button, TextField, Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { uid } from 'react-uid'
-import { DEFAULT_URL } from '../../constants'
+import { DEFAULT_URL, TYPE_SAVE, TYPE_DELETE } from '../../constants'
 import { Item } from '../../components'
-import { ITask } from '../../models'
-
-interface IState {
-    list: ITask[]
-}
+import { IListState, ITaskData } from '../../models'
 
 type ActionType =
     | { type: 'save'; id: string; list: string; tag: string; }
     | { type: 'delete'; id: string }
 
-const initialState: IState = {
+const initialState: IListState = {
     list: []
 }
 
-const taskData = {
+const taskData: ITaskData = {
     state: initialState,
     dispatch: () => null
 }
 
-const reducer = (state: IState, action: ActionType): IState => {
+const reducer = (state: IListState, action: ActionType): IListState => {
     switch (action.type) {
-        case 'save':
+        case TYPE_SAVE:
             return { list: [...state.list, { id: action.id, name: action.list, tag: action.tag }] }
-        case 'delete':
+        case TYPE_DELETE:
             return { list: [...state.list.filter(item => item.id !== action.id)] }
     }
 }
 
-export const TaskContext = createContext<{
-    state: IState
-    dispatch: React.Dispatch<any>
-}>(taskData)
+export const TaskContext: React.Context<ITaskData> = createContext<ITaskData>(taskData)
 
 export const TaskList = () => {
     const [state, dispatch] = useReducer(reducer, initialState)

@@ -1,18 +1,18 @@
 import React, { useReducer, useState } from 'react'
-import { Box, Button, TextField, Grid, IconButton, Typography } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import { Box, Button, TextField, Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { uid } from 'react-uid'
 import { DEFAULT_URL } from '../../constants'
+import { ItemList } from '../../components'
 
-interface IList {
+interface ITask {
     id: string
     name: string
     tag: string
 }
 
 interface IState {
-    list: IList[]
+    list: ITask[]
 }
 
 type ActionType =
@@ -32,17 +32,17 @@ const reducer = (state: IState, action: ActionType): IState => {
     }
 }
 
-export const Reducer = () => {
+export const TaskList = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [form, setForm] = useState({ list: '', tag: '' })
+    const [form, setForm] = useState({ item: '', tag: '' })
 
-    const saveForm = () => {
-        const formattedList: string = form.list.trim()
+    const saveForm = (): void => {
+        const formattedList: string = form.item.trim()
         const formattedTag: string = form.tag.trim()
 
         if (formattedList.length > 0 && formattedTag.length > 0) {
-            dispatch({ type: 'save', id: uid(form), list: form.list, tag: form.tag })
-            setForm({ list: '', tag: '' })
+            dispatch({ type: 'save', id: uid(form), list: form.item, tag: form.tag })
+            setForm({ item: '', tag: '' })
         }
     }
 
@@ -54,7 +54,7 @@ export const Reducer = () => {
             <Box m={5}>
                 <Grid container>
                     <Grid item md={2}>
-                        <TextField label='List' value={form.list} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'list': e.target.value }) }} />
+                        <TextField label='List' value={form.item} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'item': e.target.value }) }} />
                     </Grid>
                     <Grid item md={5}>
                         <TextField label='Tag' value={form.tag} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'tag': e.target.value }) }} />
@@ -71,29 +71,7 @@ export const Reducer = () => {
                     Save
                 </Button>
             </Box>
-            <Box m={5}>
-                <ul>
-                    {
-                        state.list.length > 0 &&
-                        state.list.map((item: IList) => (
-                            <Grid container key={item.id}>
-                                <Grid item md={4}>
-                                    <Typography variant='body1'>{item.name}</Typography>
-                                </Grid>
-                                <Grid item md={2}>
-                                    <IconButton
-                                        size="small"
-                                        aria-label="delete"
-                                        onClick={() => dispatch({ type: 'delete', id: item.id })}
-                                    >
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-                        ))
-                    }
-                </ul>
-            </Box>
+            <ItemList />
         </>
     )
 }

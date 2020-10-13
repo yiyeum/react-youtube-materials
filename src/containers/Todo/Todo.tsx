@@ -3,7 +3,7 @@ import { Box, Button, TextField, Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { uid } from 'react-uid'
 import { DEFAULT_URL, TYPE_SAVE, TYPE_DELETE } from '../../constants'
-import { Item } from '../../components'
+import { TaskList } from '../../components'
 import { IListState, ITaskData } from '../../models'
 
 type ActionType =
@@ -30,7 +30,7 @@ const reducer = (state: IListState, action: ActionType): IListState => {
 
 export const TaskContext: React.Context<ITaskData> = createContext<ITaskData>(taskData)
 
-export const TaskList = () => {
+export const Todo = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [form, setForm] = useState({ item: '', tag: '' })
 
@@ -52,7 +52,7 @@ export const TaskList = () => {
             <Box m={5}>
                 <Grid container>
                     <Grid item md={2}>
-                        <TextField label='List' value={form.item} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'item': e.target.value }) }} />
+                        <TextField label='Task' value={form.item} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'item': e.target.value }) }} />
                     </Grid>
                     <Grid item md={5}>
                         <TextField label='Tag' value={form.tag} onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setForm({ ...form, 'tag': e.target.value }) }} />
@@ -69,7 +69,7 @@ export const TaskList = () => {
                     Save
                 </Button>
             </Box>
-            <Item />
+            <TaskList />
         </TaskContext.Provider >
     )
 }

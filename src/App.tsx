@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Form, Home, Stopwatch, Context, TaskList } from './containers'
+import { Form, Home, Stopwatch, Context, Todo } from './containers'
 import { DEFAULT_URL, FORM_URL, STOPWATCH_URL, CONTEXT_URL, REDUCER_URL } from './constants';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <Route path={FORM_URL}><Form /></Route>
         <Route path={STOPWATCH_URL}><Stopwatch /></Route>
         <Route path={CONTEXT_URL}><Context /></Route>
-        <Route path={REDUCER_URL}><TaskList /></Route>
+        <Route path={REDUCER_URL}><Todo /></Route>
       </Switch>
     </Router>
   );

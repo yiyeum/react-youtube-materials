@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-youtube-materials/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/react-youtube-materials/static/js/main.d37d63e3.chunk.js",
-    "main.js.map": "/react-youtube-materials/static/js/main.d37d63e3.chunk.js.map",
+    "main.js": "/react-youtube-materials/static/js/main.48766b4e.chunk.js",
+    "main.js.map": "/react-youtube-materials/static/js/main.48766b4e.chunk.js.map",
     "runtime-main.js": "/react-youtube-materials/static/js/runtime-main.84ac34e1.js",
     "runtime-main.js.map": "/react-youtube-materials/static/js/runtime-main.84ac34e1.js.map",
     "static/js/2.4ca92149.chunk.js": "/react-youtube-materials/static/js/2.4ca92149.chunk.js",
     "static/js/2.4ca92149.chunk.js.map": "/react-youtube-materials/static/js/2.4ca92149.chunk.js.map",
     "index.html": "/react-youtube-materials/index.html",
-    "precache-manifest.05a3ec168f9c788ad79a3e39b143186d.js": "/react-youtube-materials/precache-manifest.05a3ec168f9c788ad79a3e39b143186d.js",
+    "precache-manifest.41cd7b4b6387a48a869755502990f402.js": "/react-youtube-materials/precache-manifest.41cd7b4b6387a48a869755502990f402.js",
     "service-worker.js": "/react-youtube-materials/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/react-youtube-materials/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.4ca92149.chunk.js.LICENSE.txt": "/react-youtube-materials/static/js/2.4ca92149.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.84ac34e1.js",
     "static/js/2.4ca92149.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.d37d63e3.chunk.js"
+    "static/js/main.48766b4e.chunk.js"
   ]
 }

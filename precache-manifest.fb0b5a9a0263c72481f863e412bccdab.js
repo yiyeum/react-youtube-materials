@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cfd8eaa6c1cee19d4ea3291ece210049",
+    "revision": "227d28324c3b410e500f5174500a7e3b",
     "url": "/react-youtube-materials/index.html"
   },
   {
